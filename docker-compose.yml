@@ -1,0 +1,15 @@
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    restart: on-failure
+    volumes: 
+      - .:/code:Z
+    ports: 
+      - "127.0.0.1:${GRANIAN_PORT:-8000}:8000"
+    env_file:
+       - .env
+    environment:
+       - COVERAGE_FILE=/tmp/.coverage
+    command: ["start", "8000"]
