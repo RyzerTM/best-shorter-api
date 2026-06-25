@@ -3,7 +3,7 @@ from typing import Final
 
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
-from app.main.config.settings import AppSettings
+from app.main.config.settings import AppSettings, PostgresSettings, SqlaSettings
 
 _BASE_DIR: Final[Path] = Path(__file__).resolve().parents[4]
 _ENV_FILE: Final[Path] = _BASE_DIR.joinpath(".env")
@@ -14,3 +14,11 @@ _BASE_SETTINGS_DICT: Final[SettingsConfigDict] = SettingsConfigDict(
 
 class AppEnvSettings(BaseSettings, AppSettings):
     model_config = _BASE_SETTINGS_DICT | SettingsConfigDict(env_prefix="APP_")
+
+
+class PostgresEnvSettings(BaseSettings, PostgresSettings):
+    model_config = _BASE_SETTINGS_DICT | SettingsConfigDict(env_prefix="POSTGRES_")
+
+
+class SqlaEnvSettings(BaseSettings, SqlaSettings):
+    model_config = _BASE_SETTINGS_DICT | SettingsConfigDict(env_prefix="SQLA_")
