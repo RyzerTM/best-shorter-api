@@ -9,11 +9,14 @@ authors = [
   { name = "Cryder", email = "cronyx.developer@gmail.com" },
 ]
 dependencies = [
+    "alembic>=1.18.4",
+    "asyncpg>=0.31.0",
     "dishka>=1.10.1",
     "fastapi>=0.136.3",
     "granian[reload]>=2.7.6",
     "pydantic>=2.13.4",
     "pydantic-settings>=2.14.1",
+    "sqlalchemy>=2.0.51",
 ]
 
 [dependency-groups]
@@ -23,6 +26,7 @@ dev = [
     "pytest-asyncio>=1.4.0",
     "pytest-cov>=7.1.0",
     "ruff>=0.15.17",
+    "testcontainers>=4.14.2",
 ]
 
 [tool.coverage.report]
@@ -65,7 +69,10 @@ ignore = [
 [tool.pytest]
 addopts = ["--color=yes", "-mnot(slow)", "-pno:cacheprovider"]
 filterwarnings = []
-markers = ["slow"]
+markers = [
+    "slow: marks tests as slow (deselected by default; run with -mslow)",
+    "integration: marks tests that require a live database via testcontainers",
+]
 pythonpath = ["src"]
 testpaths = ["tests"]
 asyncio_mode = "auto"
